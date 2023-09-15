@@ -14,7 +14,7 @@ public class Partido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idPartido;
-
+    
     @Column(nullable = false)
     private LocalDate fecha;
 
