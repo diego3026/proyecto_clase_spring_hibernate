@@ -10,17 +10,18 @@ import lombok.*;
 @Entity
 @Table(name = "partidos")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Partido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idPartido;
-    
+
     @Column(nullable = false)
     private LocalDate fecha;
 
     @Column(nullable = false)
     private String estadio;
-    
+
     @Column(nullable = false)
     private String arbitroPrincipal;
 
@@ -33,7 +34,12 @@ public class Partido {
     private Equipo visitante;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "idResultado",referencedColumnName = "idResultado")
+    @JoinColumn(name = "idResultado", referencedColumnName = "idResultado")
     private Resultado marcardor;
+
+    public Partido updateWith(Partido partido) {
+        return new Partido(this.idPartido, partido.getFecha(), partido.getEstadio(), partido.getArbitroPrincipal(),
+                partido.getLocal(), partido.getVisitante(), partido.getMarcardor());
+    }
 
 }

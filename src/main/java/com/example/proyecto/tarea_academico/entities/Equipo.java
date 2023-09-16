@@ -7,6 +7,8 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Equipos")
 public class Equipo {
     @Id
@@ -27,4 +29,12 @@ public class Equipo {
 
     @OneToMany(mappedBy = "visitante")
     private Set<Partido> partidosVisitante;
+
+    public Equipo updateWith(Equipo newEquipo) {
+        return new Equipo(this.idEquipo,newEquipo.getNombre(),
+                                        newEquipo.getBandera(),
+                                        newEquipo.getDirectorTecnico(),
+                                        newEquipo.getPartidosLocal(),
+                                        newEquipo.getPartidosVisitante());
+    }
 }

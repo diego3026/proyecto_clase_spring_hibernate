@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "resultados")
 public class Resultado {
     @Id
@@ -27,4 +28,10 @@ public class Resultado {
 
     @OneToOne(mappedBy = "marcardor")
     private Partido partido;
+
+    public Resultado updateWith(Resultado Resultado) {
+        return new Resultado(this.idResultado, Resultado.getGolVisitante(), Resultado.getGolLocal(),
+                Resultado.getNumeroDeTarjetasRojas(), Resultado.getNumeroDeTarjetasAmarrillas(),
+                Resultado.getPartido());
+    }
 }

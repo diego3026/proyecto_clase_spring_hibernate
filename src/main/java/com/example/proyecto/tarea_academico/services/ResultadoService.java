@@ -1,23 +1,13 @@
 package com.example.proyecto.tarea_academico.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.proyecto.tarea_academico.entities.Resultado;
-import com.example.proyecto.tarea_academico.repositories.ResultadoRepository;
 
-public class ResultadoService {
-    private ResultadoRepository resultadoRepository; 
-
-    public ResultadoService(ResultadoRepository resultadoRepository) {
-        this.resultadoRepository = resultadoRepository;
-    }
-
-    public List<Resultado> findResultados(){
-        return resultadoRepository.findAll();
-    }
-
-    public List<Resultado> findByIdResultados(Long idResultado){
-        return resultadoRepository.findByIdResultado(idResultado);
-    }
-
+public interface ResultadoService {
+    List<Resultado> findResultados();
+    Optional<Resultado> findByIdResultados(Long idResultado);
+    Resultado crearResultado(Resultado resultado);
+    Optional<Resultado> updateResultado(Long idResultado, Resultado resultado); 
 }
