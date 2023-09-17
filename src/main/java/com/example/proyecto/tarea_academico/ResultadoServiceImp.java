@@ -1,18 +1,22 @@
-package com.example.proyecto.tarea_academico.services;
+package com.example.proyecto.tarea_academico;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.example.proyecto.tarea_academico.entities.Resultado;
 import com.example.proyecto.tarea_academico.repositories.ResultadoRepository;
+import com.example.proyecto.tarea_academico.services.ResultadoService;
 
-public class ResultadoServiceImp implements ResultadoService{
-    private ResultadoRepository resultadoRepository; 
+@Service
+public class ResultadoServiceImp implements ResultadoService {
+    private ResultadoRepository resultadoRepository;
 
     public ResultadoServiceImp(ResultadoRepository resultadoRepository) {
         this.resultadoRepository = resultadoRepository;
     }
-    
+
     @Override
     public List<Resultado> findResultados() {
         return resultadoRepository.findAll();
@@ -28,7 +32,7 @@ public class ResultadoServiceImp implements ResultadoService{
         Resultado resultadoNuevo = new Resultado();
         resultadoNuevo.setGolLocal(resultado.getGolLocal());
         resultadoNuevo.setGolVisitante(resultado.getGolVisitante());
-        resultadoNuevo.setNumeroDeTarjetasAmarrillas(resultado.getNumeroDeTarjetasAmarrillas());
+        resultadoNuevo.setNumeroDeTarjetasAmarillas(resultado.getNumeroDeTarjetasAmarillas());
         resultadoNuevo.setNumeroDeTarjetasRojas(resultado.getNumeroDeTarjetasRojas());
         resultadoNuevo.setPartido(resultado.getPartido());
         return resultadoRepository.save(resultadoNuevo);
@@ -45,5 +49,5 @@ public class ResultadoServiceImp implements ResultadoService{
 
         return resultadoUpdated;
     }
-    
+
 }

@@ -24,14 +24,14 @@ public class Resultado {
     private int numeroDeTarjetasRojas;
 
     @Column(nullable = false)
-    private int numeroDeTarjetasAmarrillas;
+    private int numeroDeTarjetasAmarillas;
 
     @OneToOne(mappedBy = "marcardor")
     private Partido partido;
 
     public Resultado updateWith(Resultado Resultado) {
         return new Resultado(this.idResultado, Resultado.getGolVisitante(), Resultado.getGolLocal(),
-                Resultado.getNumeroDeTarjetasRojas(), Resultado.getNumeroDeTarjetasAmarrillas(),
+                Resultado.getNumeroDeTarjetasRojas(), Resultado.getNumeroDeTarjetasAmarillas(),
                 Resultado.getPartido());
     }
 }

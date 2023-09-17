@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.example.proyecto.tarea_academico.entities.Partido;
 import com.example.proyecto.tarea_academico.repositories.PartidoRepository;
 
+@Service
 public class PartidoServiceImp implements PartidoService {
     private PartidoRepository partidoRep;
 
@@ -15,8 +18,8 @@ public class PartidoServiceImp implements PartidoService {
     }
 
     @Override
-    public List<Partido> findByIdPartidoAndFecha(Long idPartido, LocalDate fecha) {
-        return partidoRep.findByIdPartidoAndFecha(idPartido, fecha);
+    public List<Partido> findPartidoByFecha(LocalDate fecha) {
+        return partidoRep.findPartidoByFecha(fecha);
     }
 
     @Override
@@ -30,8 +33,8 @@ public class PartidoServiceImp implements PartidoService {
     }
 
     @Override
-    public List<Partido> findByIdPartidoAndLocalOrVisitante(Long idPartido, Long idEquipo) {
-        return partidoRep.findByIdPartidoAndLocalOrVisitante(idPartido, idEquipo);
+    public List<Partido> findPartidoByLocalOrVisitante(Long idEquipo) {
+        return partidoRep.findPartidoByLocalOrVisitante(idEquipo);
     }
 
     @Override

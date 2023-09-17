@@ -7,9 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PartidoRepository extends JpaRepository<Partido, Long> {
-    List<Partido> findByIdPartidoAndFecha(Long idPartido, LocalDate fecha);
+    List<Partido> findPartidoByFecha(LocalDate fecha);
     List<Partido> findByIdPartido(Long idPartido);
     @Query("SELECT p FROM Partido p WHERE p.idPartido = ?1 AND (p.local.idEquipo = ?2 OR p.visitante.idEquipo = ?2)")
-    List<Partido> findByIdPartidoAndLocalOrVisitante(Long idPartido, Long idEquipo);
+    List<Partido> findPartidoByLocalOrVisitante(Long idEquipo);
 
 }

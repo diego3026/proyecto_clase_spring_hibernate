@@ -3,12 +3,15 @@ package com.example.proyecto.tarea_academico.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.example.proyecto.tarea_academico.entities.Equipo;
 import com.example.proyecto.tarea_academico.repositories.EquipoRepository;
 
-public class EquipoServiceImpl implements EquipoService{
+@Service
+public class EquipoServiceImpl implements EquipoService {
     private EquipoRepository equipoRepository;
-    
+
     public EquipoServiceImpl(EquipoRepository equipoRepository) {
         this.equipoRepository = equipoRepository;
     }
@@ -32,7 +35,7 @@ public class EquipoServiceImpl implements EquipoService{
     public Optional<Equipo> updateEquipo(Long idEquipo, Equipo newEquipo) {
         Optional<Equipo> equipoInDB = equipoRepository.findById(idEquipo);
 
-        Optional<Equipo> equipoUpdated = equipoInDB.map(oldEquipoInDB->{
+        Optional<Equipo> equipoUpdated = equipoInDB.map(oldEquipoInDB -> {
             Equipo updated = oldEquipoInDB.updateWith(newEquipo);
             return equipoRepository.save(updated);
         });
@@ -45,13 +48,13 @@ public class EquipoServiceImpl implements EquipoService{
         Equipo equipoNuevo = new Equipo();
         equipoNuevo.setNombre(equipo.getNombre());
         equipoNuevo.setDirectorTecnico(equipo.getDirectorTecnico());
-        equipoNuevo.setBandera(equipo.getDirectorTecnico());
+        equipoNuevo.setBandera(equipo.getBandera());
         return equipoRepository.save(equipoNuevo);
     }
 
     @Override
     public void deleteEquipo(Long idEquipo) {
-        equipoRepository.deleteById(idEquipo); 
+        equipoRepository.deleteById(idEquipo);
     }
-    
+
 }
