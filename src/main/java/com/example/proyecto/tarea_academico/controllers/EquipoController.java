@@ -78,13 +78,13 @@ public class EquipoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/equiposPorNombre")
-    public ResponseEntity<List<Equipo>> findEquiposByNombre(@RequestParam String nombre) {
-        List<Equipo> equipos = equipoService.findByNombre(nombre);
+    // @GetMapping("/equiposPorNombre")
+    // public ResponseEntity<List<Equipo>> findEquiposByNombre(@RequestParam String nombre) {
+    //     List<Equipo> equipos = equipoService.findByNombre(nombre);
 
-        if (equipos.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(equipos);
-    }
+    //     if (equipos.isEmpty()) {
+    //         return ResponseEntity.notFound().build();
+    //     }
+    //     return ResponseEntity.ok().body(equipos);
+    // }
 }

@@ -1,4 +1,4 @@
-package com.example.proyecto.tarea_academico;
+package com.example.proyecto.tarea_academico.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.proyecto.tarea_academico.entities.Resultado;
 import com.example.proyecto.tarea_academico.repositories.ResultadoRepository;
-import com.example.proyecto.tarea_academico.services.ResultadoService;
 
 @Service
 public class ResultadoServiceImp implements ResultadoService {

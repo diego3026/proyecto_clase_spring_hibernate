@@ -3,9 +3,13 @@ package com.example.proyecto.tarea_academico.controllers;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +29,8 @@ public class PartidoController {
     }
 
     @GetMapping("/partidos")
-    public ResponseEntity<List<Partido>> findPartidos(@RequestParam(required = false) LocalDate fecha, @RequestParam(required = false) Long idEquipo) {
+    public ResponseEntity<List<Partido>> findPartidos(@RequestParam(required = false) LocalDate fecha,
+            @RequestParam(required = false) Long idEquipo) {
         List<Partido> partidos = partidoService.findPartidos();
 
         if (fecha != null && idEquipo == null) {
@@ -59,9 +64,21 @@ public class PartidoController {
         return ResponseEntity.created(location).body(partidoCreado);
     }
 
-    // @PatchMapping("/partidos/{id}")
-    // public ResponseEntity<Partido> patchPartido(@PathVariable Long id) {
+    @PutMapping("/partidos/{id}")
+    public ResponseEntity<Partido> updatePartido(@PathVariable Long id, @RequestBody Partido partidoUpdate) {
+        Optional<Partido> partido = partidoService.updatedPartido(id, partidoUpdate);
 
-    // }
+        return partido.map(partidoUpdateInDb -> ResponseEntity.ok().body(partidoUpdateInDb))
+                .orElseGet(() -> {
+                    Partido partidoCreado = partidoService.createPartido(partidoUpdate);
 
+                    URI location = ServletUriComponentsBuilder
+                            .fromCurrentRequest()
+                            .path("/{id}")
+                            .buildAndExpand(partidoCreado.getIdPartido())
+                            .toUri();
+
+                    return ResponseEntity.created(location).body(partidoCreado);
+                });
+    }
 }
