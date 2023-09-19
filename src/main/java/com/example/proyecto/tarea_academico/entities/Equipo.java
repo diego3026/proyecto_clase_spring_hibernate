@@ -25,10 +25,10 @@ public class Equipo {
     private String directorTecnico;
 
     @OneToMany(mappedBy = "local")
-    private Set<Partido> partidosLocal;
+    private List<Partido> partidosLocal;
 
     @OneToMany(mappedBy = "visitante")
-    private Set<Partido> partidosVisitante;
+    private List<Partido> partidosVisitante;
 
     public Equipo updateWith(Equipo newEquipo) {
         return new Equipo(this.idEquipo,newEquipo.getNombre(),

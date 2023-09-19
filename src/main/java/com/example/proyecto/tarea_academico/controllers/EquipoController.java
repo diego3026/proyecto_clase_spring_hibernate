@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.proyecto.tarea_academico.entities.Equipo;
 import com.example.proyecto.tarea_academico.services.EquipoService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class EquipoController {
     public ResponseEntity<List<Equipo>> findEquipos(@RequestParam(required = false) String nombre) {
         List<Equipo> listEquipo = equipoService.findAllEquipos();
 
-        if (nombre!=null) {
+        if (nombre != null) {
             List<Equipo> equipos = equipoService.findByNombre(nombre);
             if (equipos.isEmpty()) {
                 return ResponseEntity.notFound().build();
@@ -51,7 +52,6 @@ public class EquipoController {
                 .path("/{id}")
                 .buildAndExpand(equipoCreado.getIdEquipo())
                 .toUri();
-
         return ResponseEntity.created(location).body(equipoCreado);
     }
 
@@ -81,7 +81,7 @@ public class EquipoController {
     // @GetMapping("/equiposPorNombre")
     // public ResponseEntity<List<Equipo>> findEquiposByNombre(@RequestParam String nombre) {
     //     List<Equipo> equipos = equipoService.findByNombre(nombre);
-
+        
     //     if (equipos.isEmpty()) {
     //         return ResponseEntity.notFound().build();
     //     }

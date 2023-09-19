@@ -14,7 +14,7 @@ import lombok.*;
 public class Partido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idPartido;
+    private Long idPartido;
 
     @Column(nullable = false)
     private LocalDate fecha;
