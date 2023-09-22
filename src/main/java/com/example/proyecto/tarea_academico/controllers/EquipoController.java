@@ -1,8 +1,10 @@
 package com.example.proyecto.tarea_academico.controllers;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.proyecto.tarea_academico.dtos.EquipoDto;
+import com.example.proyecto.tarea_academico.dtos.EquipoMapper;
 import com.example.proyecto.tarea_academico.entities.Equipo;
 import com.example.proyecto.tarea_academico.services.EquipoService;
 
@@ -24,23 +28,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/v1")
 public class EquipoController {
     private final EquipoService equipoService;
+    private final EquipoMapper equipoMapper;
 
-    public EquipoController(EquipoService equipoService) {
+    public EquipoController(EquipoService equipoService,EquipoMapper equipoMapper) {
         this.equipoService = equipoService;
+        this.equipoMapper = equipoMapper;
     }
 
     @GetMapping("/equipos")
-    public ResponseEntity<List<Equipo>> findEquipos(@RequestParam(required = false) String nombre) {
+    public ResponseEntity<List<EquipoDto>> findEquipos(@RequestParam(required = false) String nombre) {
         List<Equipo> listEquipo = equipoService.findAllEquipos();
+        List<EquipoDto> equiposDto = new ArrayList<>();
+        equiposDto = listEquipo.stream().map(equipo -> equipoMapper.equipoToEquipoDto(equipo)).collect(Collectors.toList());
 
         if (nombre != null) {
             List<Equipo> equipos = equipoService.findByNombre(nombre);
+            List<EquipoDto> equiposDtoPorNombre = new ArrayList<>();
+            equiposDtoPorNombre = equipos.stream().map(equipo -> equipoMapper.equipoToEquipoDto(equipo)).collect(Collectors.toList());
+
             if (equipos.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
-            return ResponseEntity.ok().body(equipos);
+            return ResponseEntity.ok().body(equiposDtoPorNombre);
         }
-        return ResponseEntity.ok().body(listEquipo);
+        return ResponseEntity.ok().body(equiposDto);
     }
 
     @PostMapping("/equipos")
@@ -78,13 +89,4 @@ public class EquipoController {
         return ResponseEntity.noContent().build();
     }
 
-    // @GetMapping("/equiposPorNombre")
-    // public ResponseEntity<List<Equipo>> findEquiposByNombre(@RequestParam String nombre) {
-    //     List<Equipo> equipos = equipoService.findByNombre(nombre);
-        
-    //     if (equipos.isEmpty()) {
-    //         return ResponseEntity.notFound().build();
-    //     }
-    //     return ResponseEntity.ok().body(equipos);
-    // }
 }

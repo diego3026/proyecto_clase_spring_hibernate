@@ -1,6 +1,9 @@
 package com.example.proyecto.tarea_academico.entities;
 
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,10 +28,10 @@ public class Equipo {
     private String directorTecnico;
 
     @OneToMany(mappedBy = "local")
-    private List<Partido> partidosLocal;
+    private Set<Partido> partidosLocal;
 
     @OneToMany(mappedBy = "visitante")
-    private List<Partido> partidosVisitante;
+    private Set<Partido> partidosVisitante;
 
     public Equipo updateWith(Equipo newEquipo) {
         return new Equipo(this.idEquipo,newEquipo.getNombre(),

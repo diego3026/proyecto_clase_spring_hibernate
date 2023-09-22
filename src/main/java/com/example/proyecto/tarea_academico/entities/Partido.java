@@ -17,7 +17,7 @@ public class Partido {
     private Long idPartido;
 
     @Column(nullable = false)
-    private LocalDate fecha;
+    private LocalDate fecha; 
 
     @Column(nullable = false)
     private String estadio;

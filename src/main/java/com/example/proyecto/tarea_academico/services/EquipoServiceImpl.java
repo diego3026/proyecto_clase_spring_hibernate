@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.proyecto.tarea_academico.entities.Equipo;
+import com.example.proyecto.tarea_academico.exceptions.EquipoNotFoundException;
 import com.example.proyecto.tarea_academico.repositories.EquipoRepository;
 
 @Service
@@ -28,7 +29,12 @@ public class EquipoServiceImpl implements EquipoService {
 
     @Override
     public List<Equipo> findByNombre(String nombre) {
-        return equipoRepository.findByNombre(nombre);
+        List<Equipo> equipos = equipoRepository.findByNombre(nombre);
+
+        if(!equipos.isEmpty()){
+            throw new EquipoNotFoundException("No se encontro Equipo con el parametro de la busqueda");
+        }
+        return equipos;
     }
 
     @Override

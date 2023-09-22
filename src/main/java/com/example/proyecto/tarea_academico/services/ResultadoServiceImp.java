@@ -30,7 +30,7 @@ public class ResultadoServiceImp implements ResultadoService {
     public Resultado crearResultado(Resultado resultado) {
         Resultado resultadoNuevo = new Resultado();
         resultadoNuevo.setGolLocal(resultado.getGolLocal());
-        resultadoNuevo.setGolVisitante(resultado.getGolVisitante());
+        resultadoNuevo.setGolVisitantes(resultado.getGolVisitantes());
         resultadoNuevo.setNumeroDeTarjetasAmarillas(resultado.getNumeroDeTarjetasAmarillas());
         resultadoNuevo.setNumeroDeTarjetasRojas(resultado.getNumeroDeTarjetasRojas());
         resultadoNuevo.setPartido(resultado.getPartido());

@@ -1,5 +1,7 @@
 package com.example.proyecto.tarea_academico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +17,7 @@ public class Resultado {
     private long idResultado;
 
     @Column(nullable = false)
-    private int golVisitante;
+    private int golVisitantes;
 
     @Column(nullable = false)
     private int golLocal;
@@ -30,7 +32,7 @@ public class Resultado {
     private Partido partido;
 
     public Resultado updateWith(Resultado Resultado) {
-        return new Resultado(this.idResultado, Resultado.getGolVisitante(), Resultado.getGolLocal(),
+        return new Resultado(this.idResultado, Resultado.getGolVisitantes(), Resultado.getGolLocal(),
                 Resultado.getNumeroDeTarjetasRojas(), Resultado.getNumeroDeTarjetasAmarillas(),
                 Resultado.getPartido());
     }
