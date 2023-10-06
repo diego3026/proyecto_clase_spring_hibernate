@@ -1,8 +1,9 @@
 package com.example.proyecto.tarea_academico.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 @Getter
@@ -16,18 +17,27 @@ public class Resultado {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idResultado;
 
+    @PositiveOrZero
+    @NotBlank(message = "No puede estar vacio")
     @Column(nullable = false)
     private int golVisitantes;
 
+    @PositiveOrZero
+    @NotBlank(message = "No puede estar vacio")
     @Column(nullable = false)
     private int golLocal;
 
+    @PositiveOrZero
+    @NotBlank(message = "No puede estar vacio")
     @Column(nullable = false)
     private int numeroDeTarjetasRojas;
 
+    @PositiveOrZero
+    @NotBlank(message = "No puede estar vacio")
     @Column(nullable = false)
     private int numeroDeTarjetasAmarillas;
 
+    @NotBlank(message = "No puede estar vacio")
     @OneToOne(mappedBy = "marcardor")
     private Partido partido;
 

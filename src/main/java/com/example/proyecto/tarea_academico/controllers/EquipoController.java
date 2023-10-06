@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ import com.example.proyecto.tarea_academico.dtos.EquipoDto;
 import com.example.proyecto.tarea_academico.dtos.EquipoMapper;
 import com.example.proyecto.tarea_academico.entities.Equipo;
 import com.example.proyecto.tarea_academico.services.EquipoService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,7 +59,7 @@ public class EquipoController {
     }
 
     @PostMapping("/equipos")
-    public ResponseEntity<Equipo> crearEquipo(@RequestBody Equipo equipo) {
+    public ResponseEntity<Equipo> crearEquipo(@RequestBody @Valid Equipo equipo) {
         Equipo equipoCreado = equipoService.createEquipo(equipo);
 
         URI location = ServletUriComponentsBuilder
@@ -67,7 +71,7 @@ public class EquipoController {
     }
 
     @PutMapping("/equipos/{id}")
-    public ResponseEntity<Equipo> update(@PathVariable Long id, @RequestBody Equipo updatedEquipo) {
+    public ResponseEntity<Equipo> update(@PathVariable @Min(1) Long id, @RequestBody @Valid Equipo updatedEquipo) {
         Optional<Equipo> equipo = equipoService.updateEquipo(id, updatedEquipo);
 
         return equipo.map(equipoUpdateInDb -> ResponseEntity.ok().body(equipoUpdateInDb))
@@ -84,7 +88,7 @@ public class EquipoController {
     }
 
     @DeleteMapping("/equipos/{id}")
-    public ResponseEntity<Equipo> deleteEquipo(@PathVariable Long id) {
+    public ResponseEntity<Equipo> deleteEquipo(@PathVariable @Min(1) Long id) {
         equipoService.deleteEquipo(id);
         return ResponseEntity.noContent().build();
     }

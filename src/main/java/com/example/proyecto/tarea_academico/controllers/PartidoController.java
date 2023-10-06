@@ -23,6 +23,9 @@ import com.example.proyecto.tarea_academico.dtos.PartidoMapper;
 import com.example.proyecto.tarea_academico.entities.*;
 import com.example.proyecto.tarea_academico.services.PartidoService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+
 @RestController
 @RequestMapping("api/v1")
 public class PartidoController {
@@ -66,7 +69,7 @@ public class PartidoController {
     } 
 
     @PostMapping("/partidos")
-    public ResponseEntity<Partido> crearPartido(@RequestBody Partido partido) {
+    public ResponseEntity<Partido> crearPartido(@RequestBody @Valid Partido partido) {
         Partido partidoCreado = partidoService.createPartido(partido);
 
         URI location = ServletUriComponentsBuilder
@@ -79,7 +82,7 @@ public class PartidoController {
     }
 
     @PutMapping("/partidos/{id}")
-    public ResponseEntity<PartidoDto> updatePartido(@PathVariable Long id, @RequestBody Partido partidoUpdate) {
+    public ResponseEntity<PartidoDto> updatePartido(@PathVariable @Min(1) Long id, @RequestBody @Valid Partido partidoUpdate) {
         Optional<Partido> partido = partidoService.updatedPartido(id, partidoUpdate);
 
         return partido.map(partidoUpdateInDb -> ResponseEntity.ok().body(partidoMapper.partidoToPartidoDto(partidoUpdateInDb)))

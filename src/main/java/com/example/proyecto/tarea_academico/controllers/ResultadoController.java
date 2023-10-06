@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,12 @@ import com.example.proyecto.tarea_academico.dtos.ResultadoMapper;
 import com.example.proyecto.tarea_academico.entities.Resultado;
 import com.example.proyecto.tarea_academico.services.ResultadoService;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+
 @RestController
 @RequestMapping("api/v1")
+@Validated
 public class ResultadoController {
     private final ResultadoService resultadoService;
     private final ResultadoMapper resultadoMapper;
@@ -42,7 +47,7 @@ public class ResultadoController {
     }
 
     @PostMapping("/resultados")
-    public ResponseEntity<Resultado> crearResultado(@RequestBody Resultado resultado) {
+    public ResponseEntity<Resultado> crearResultado(@RequestBody @Valid Resultado resultado) {
         Resultado resultadoNuevo = resultadoService.crearResultado(resultado);
 
         URI location = ServletUriComponentsBuilder
@@ -54,7 +59,7 @@ public class ResultadoController {
     }
 
     @PutMapping("/resultados/{id}")
-    public ResponseEntity<Resultado> updateResultado(@PathVariable Long id, @RequestBody Resultado resultadoUptade) {
+    public ResponseEntity<Resultado> updateResultado(@PathVariable @Min(1) Long id, @RequestBody @Valid Resultado resultadoUptade) {
         Optional<Resultado> resultado = resultadoService.updateResultado(id, resultadoUptade);
 
         return resultado.map(resultadoUpdateInDb -> ResponseEntity.ok().body(resultadoUpdateInDb))

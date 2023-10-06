@@ -2,9 +2,9 @@ package com.example.proyecto.tarea_academico.entities;
 
 import java.util.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import org.hibernate.validator.constraints.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -18,12 +18,16 @@ public class Equipo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idEquipo;
 
+    @NotBlank(message = "El nombre no puede estar vacio")
     @Column(nullable = false)
     private String nombre;
 
+    @NotBlank(message = "La bandera no puede estar vacia")
+    @URL
     @Column(nullable = false)
     private String bandera;
 
+    @NotBlank(message = "El director tecnico no puede estar vacio")
     @Column(nullable = false)
     private String directorTecnico;
 
